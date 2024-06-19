@@ -1,0 +1,132 @@
+﻿@model IEnumerable<ngay8thang3_Complete.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Nhân viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link href="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" rel="stylesheet" />
+
+
+<div class="card mt-3">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body">
+        @if (ViewBag.SuccessMsg != null)
+        {
+            <div id="AlertBox" class="alert alert-success">
+                <p>@ViewBag.SuccessMsg</p>
+            </div>
+        }
+        <p>
+            <a class="btn btn-success" href="@Url.Action("Create")" role="button">Thêm mới</a>
+        </p>
+        <table id="Panigation" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HoVaTen)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DienThoai)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiaChi)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TenDangNhap)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quyen)
+                    </th>
+                    <th width="5%">Sửa</th>
+                    <th width="5%">Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 1; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoVaTen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DienThoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenDangNhap)
+                        </td>
+
+                        <td>
+                            @if (item.Quyen == true)
+                            {
+                                <span class="badge badge-danger">Quản lý</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning">Nhân viên</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="~/Admin/NhanViens/Edit?id=@item.ID"><i class="fas fa-edit"></i></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="~/Admin/NhanViens/DeleteConfirmed?id=@item.ID" onclick="return confirm('Bạn muốn xóa Tài khoản này không');"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+        <a href="javascript: history.back()" class="btn btn-light"> &laquo Quay lại</a>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+        $(document).ready(function () {
+            $('#Panigation').DataTable({
+                "language": {
+                    "lengthMenu": "Số dòng _MENU_  trên trang ",
+                    "zeroRecords": "Không tìm thấy!!!",
+                    "info": "Trang  _PAGE_ của _PAGES_",
+                    "infoEmpty": "Không có sẵn dữ liệu",
+                    "infoFiltered": "(được lọc từ tổng _MAX_  dữ liệu)"
+                }
+            });
+        });
+    </script>
+    <script>
+        //function confirm() {
+        //    var result = confirm();
+        //    if (result == true) {
+        //        return true;
+        //    }
+
+        //    else {
+        //        return false;
+        //    }
+        //}
+        function confirm() {
+            var result = confirm();
+            if (result == true) {
+                return true;
+            } else {
+                return false;
+            }
+    </script>
+
+}

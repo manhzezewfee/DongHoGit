@@ -1,0 +1,67 @@
+﻿@model ngay8thang3_Complete.Models.DatHang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DatHang</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KhachHang.HoVaten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.HoVaten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhanVien.HoVaTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanVien.HoVaTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DienThoaiGiaoHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoaiGiaoHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChiGiaoHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChiGiaoHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDatHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDatHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrang)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

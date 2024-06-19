@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.title</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link href="~/Areas/ThemeAdmin/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link href="~/Areas/ThemeAdmin/dist/css/adminlte.min.css" rel="stylesheet" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Areas/ThemeAdmin/plugins/summernote/summernote-bs4.min.css">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/Areas/ThemeAdmin/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <!-- Brand Logo -->
+        @if (Session["fullnameAdmin"] != null)
+        {
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <a href="#" class="brand-link">
+                    <img src="~/Areas/ThemeAdmin/dist/img/AdminLTELogo.png" alt="@Session["fullnameAdmin"]" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light"> @Session["fullnameAdmin"]</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/Areas/ThemeAdmin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">@Session["fullnamead"]</a>
+                        </div>
+                    </div>
+
+
+                    <!-- SidebarSearch Form -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                       
+                        <div class="info">
+                            <a href="~/Admin/Home/Index" class="d-block"><i class="fa fa-home"></i> Home</a>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="input-group" data-widget="sidebar-search">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+
+                                    <p>
+                                        Quản lý chức năng
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="~/Admin/ChatLieu/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Chất Liệu</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/ThuongHieu/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Thương Hiệu</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="~/Admin/LoaiDHs/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Loại Đồng Hồ</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/XuatXu/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Xuất xứ</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/NhanViens/ListNV" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Nhân viên</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/KhachHang/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Khách hàng</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <!----------------------------------------------------------------------->
+                            @*<li class="nav-item menu-open">
+                                    <a href="" class="nav-link active">
+
+                                        <p>
+                                            Quản lý Tài khoản
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+
+                                        <li class="nav-item">
+                                            <a href="~/Admin/KhachHang/Index" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Chất Liệu</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>*@
+                            <!---------------------------------------------------------------------------------->
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+
+                                    <p>
+                                        Quản lý Đồng Hồ
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="~/Admin/DongHo/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách đồng Hồ</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/DatHangs/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đơn hàng</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Admin/DatHang_ChiTiet/Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Chi tiết đơn hàng</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+
+                                    <p>
+                                        Thống kê
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="~/Admin/ThongKe/doanhthu" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Doanh Thu Theo Tháng</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                            </li>
+                            <!----------------------------------------------------------------------->
+                            <!----------------------------------------------------------------------->
+
+
+                        </ul>
+
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                    <div class="form-inline">
+
+                        @*<nav class="mt-2">
+                                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                    <li class="nav-item">
+                                        <a href="~/Admin/NhanViens/Index" class="nav-link" style="display:flex">
+                                            <i class="nav-icon fas fa-user"></i>
+                                            <p>
+                                                Đăng Nhập
+
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>*@
+
+
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <li class="nav-item">
+                                    <a href="~/Admin/NhanViens/Logout" class="nav-link" style="display:flex">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>
+                                            Đăng Xuất
+
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Admin/NhanViens/DoiMatKhau" class="nav-link" style="display:flex">
+                                        <i class="nav-icon fas fa-lock"></i>
+                                        <p>
+                                            Đổi mật khẩu
+
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+
+                    </div>
+                </div>
+            </aside>
+        }
+        else
+        {
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <a href="~/Admin/Home" class="brand-link">
+                    <img src="~/Areas/ThemeAdmin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">AdminLTE 3</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/Areas/ThemeAdmin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>-->
+                        <!--<div class="info">
+                            <a href="#" class="d-block">Alexander Pierce</a>
+                        </div>-->
+                    <!--</div>-->
+                    <div class="form-inline">
+
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <li class="nav-item">
+                                    <a href="~/Admin/NhanViens/Index" class="nav-link" style="display:flex">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>
+                                            Đăng Nhập
+
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </aside>
+        }
+        <!-- /.sidebar -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+
+        </div>
+
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/Areas/ThemeAdmin/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Areas/ThemeAdmin/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>$.widget.bridge('uibutton', $.ui.button)</script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Areas/ThemeAdmin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Areas/ThemeAdmin/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Areas/ThemeAdmin/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/Areas/ThemeAdmin/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/Areas/ThemeAdmin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/Areas/ThemeAdmin/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/Areas/ThemeAdmin/plugins/moment/moment.min.js"></script>
+    <script src="~/Areas/ThemeAdmin/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/Areas/ThemeAdmin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/Areas/ThemeAdmin/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Areas/ThemeAdmin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Areas/ThemeAdmin/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Areas/ThemeAdmin/dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/Areas/ThemeAdmin/dist/js/pages/dashboard.js"></script>
+
+    <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+</body>
+</html>

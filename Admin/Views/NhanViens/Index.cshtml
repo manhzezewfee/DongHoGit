@@ -1,0 +1,65 @@
+﻿@model ngay8thang3_Complete.Models.CommonModel.NhanVienModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-group {
+        padding: 5px;
+        
+    }
+
+    .form-label {
+        width: 150px;
+        margin: 0;
+        margin: auto;
+        font-weight: normal !important;
+    }
+
+    .btn-primary {
+        margin: 10px 150px;
+    }
+</style>
+@if (ViewBag.success != null)
+{
+    <div id="AlertBox" class="alert alert-success">
+        @ViewBag.success
+    </div>
+}
+<h3 style="text-align:center; padding:50px">Đăng nhập tài khoản admin</h3>
+<div style="display: flex; margin: 0 150px; margin: 0 300px; padding: 40px;" class="border border-success">
+    <div class="mb-3" style="margin: auto">
+        @using (Html.BeginForm("Index", "NhanViens", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label">Tên tài khoản</label>
+                @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label">Mật khẩu</label>
+                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">Remember me</label>
+                </div>
+            </div>
+            <p style="color:red">@ViewBag.login</p>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+    </script>
+    }

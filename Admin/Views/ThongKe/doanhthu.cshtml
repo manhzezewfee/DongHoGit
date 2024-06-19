@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewBag.Title = "doanhthu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<div style="padding:50px 0 10px 20px">
+    <p style="font-size:30px">Thống kê Doanh Thu & Lợi nhuận</p>
+</div>
+<div class="row">
+    <!-- Left col -->
+    <section style="width:100%">
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+            <div class="card-header ui-sortable-handle" style="cursor: move;">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Biểu đồ Thống kê
+                </h3>
+                <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div id="chartdiv"></div>
+            </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <!-- DIRECT CHAT -->
+
+    </section>
+    <!-- /.Left col -->
+    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+    <!-- right col -->
+</div>
+<div class="row">
+    <!-- Left col -->
+    <section style="width:100%">
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+            <div class="card-header ui-sortable-handle" style="cursor: move;">
+                <h3 class="card-title">
+                    <i class="fas fa-table"></i>
+                    Bảng thống kê
+                </h3>
+                <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Doanh thu</th>
+                            <th>Lợi nhuận</th>
+                        </tr>
+                    </thead>
+                   <tbody id="load_data">
+
+                   </tbody>
+                </table>
+            </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <!-- DIRECT CHAT -->
+
+    </section>
+    <!-- /.Left col -->
+    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+    <!-- right col -->
+</div>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="~/Areas/ThemeAdmin/plugins/moment/moment.min.js"></script>
+<!-- Chart code -->
+<script>
+    am5.ready(function () {
+
+        var arrDoanhThu = [];
+        var arrLoiNhuan = [];
+        var arrDate = [];
+
+        //ajax call -> dữ liệu
+        $.ajax({
+            url: '/Admin/ThongKe/GetDoanhThu',
+            data: {},
+            success: function (rs) {
+                $.each(rs.result, function (i, item) {
+
+                    var strDate = moment(item.Date).format('DD/MM/yy'); //để ngày đúng định dạng
+
+                    arrDate.push(strDate);
+                    arrDoanhThu.push(item.DoanhThu);
+
+                    arrLoiNhuan.push(item.LoiNhuan);
+                });
+
+                var root = am5.Root.new("chartdiv");
+
+
+                // Set themes
+
+                root.setThemes([
+                    am5themes_Animated.new(root)
+                ]);
+
+
+                // Create chart
+
+                var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                    panX: false,
+                    panY: false,
+                    wheelX: "panX",
+                    wheelY: "zoomX",
+                    layout: root.verticalLayout
+                }));
+
+
+                // Add legend
+
+                var legend = chart.children.push(
+                    am5.Legend.new(root, {
+                        centerX: am5.p50,
+                        x: am5.p50
+                    })
+                );
+
+                var data = [ //"year": arrDate,
+                    //"doanhthu": arrDoanhThu,
+                    //"loinhuan": arrLoiNhuan
+                    //    "year": "2021",
+                    //        "doanhthu": 50000000,
+
+                    //    "loinhuan": 15000000
+                    //}, {
+                    //    "year": "2022",
+                    //    "doanhthu": 2.6,
+
+                    //    "loinhuan": 0.3
+                    //}, {
+                    //    "year": "2023",
+                    //    "doanhthu": 1500000,
+
+                    //    "loinhuan": 60000000
+                ]; //khai báo data là mảng rỗng
+                //cho vòng lặp để push vào data
+                for (var i = 0; i < arrDate.length; i++) {
+                    var obj = {
+                        "year": arrDate[i + 1],
+                        "doanhthu": arrDoanhThu[i + 1],
+                        "loinhuan": arrLoiNhuan[i + 1]
+                    }
+                    data.push(obj);
+
+                }
+
+
+
+                // Create axes
+
+                var xRenderer = am5xy.AxisRendererX.new(root, {
+                    cellStartLocation: 0.1,
+                    cellEndLocation: 0.9
+                })
+
+                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                    categoryField: "year",
+                    renderer: xRenderer,
+                    tooltip: am5.Tooltip.new(root, {})
+                }));
+
+                xRenderer.grid.template.setAll({
+                    location: 1
+                })
+
+                xAxis.data.setAll(data);
+
+                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                    renderer: am5xy.AxisRendererY.new(root, {
+                        strokeOpacity: 0.1
+                    })
+                }));
+
+
+                // Add series
+
+                function makeSeries(name, fieldName) {
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: name,
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: fieldName,
+                        categoryXField: "year"
+                    }));
+
+                    series.columns.template.setAll({
+                        tooltipText: "{name}, {categoryX}:{valueY}",
+                        width: am5.percent(90),
+                        tooltipY: 0,
+                        strokeOpacity: 0
+                    });
+
+                    series.data.setAll(data);
+
+                    // Make stuff animate on load
+
+                    series.appear();
+
+                    series.bullets.push(function () {
+                        return am5.Bullet.new(root, {
+                            locationY: 0,
+                            sprite: am5.Label.new(root, {
+                                text: "{valueY}",
+                                fill: root.interfaceColors.get("alternativeText"),
+                                centerY: 0,
+                                centerX: am5.p50,
+                                populateText: true
+                            })
+                        });
+                    });
+
+                    legend.data.push(series);
+                }
+
+                makeSeries("Doanh Thu", "doanhthu");
+                //makeSeries("North America", "namerica");
+                //makeSeries("Asia", "asia");
+                //makeSeries("Latin America", "lamerica");
+                //makeSeries("Middle East", "meast");
+                makeSeries("Lợi nhuận", "loinhuan");
+
+
+                // Make stuff animate on load
+
+                chart.appear(1000, 100);
+                load_data(rs.result);
+            }
+             
+        });
+
+        // Create root element
+
+      
+    }); // end am5.ready()
+    //load dữ liệu ra bảng
+    function load_data(data) {
+        var str = "";
+        $.each(data, function (i, item) {
+            var strDate = moment(item.Date).format('DD/MM/yy'); //để ngày đúng định dạng
+            var strDoanhThu = item.DoanhThu.toLocaleString();
+            var strLoiNhuan = item.LoiNhuan.toLocaleString();
+            str += "<tr>";
+            str += "<td>" + (i + 1) + "</td> ";
+            str += "<td>" + strDate + "</td> ";
+            str += "<td>" + strDoanhThu + "</td> ";
+            str += "<td>" + strLoiNhuan + "</td> ";
+            str += "</tr>";
+
+
+        });
+        $('#load_data').html(str);
+    }
+</script>
+
+<!-- HTML -->
