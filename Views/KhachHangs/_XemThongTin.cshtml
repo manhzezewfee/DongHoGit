@@ -1,0 +1,66 @@
+﻿@model ngay8thang3_Complete.Models.KhachHang
+
+<style>
+    .lable{
+        display:flex;
+    }
+    dt{
+        width:150px;
+    }
+</style>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <div class="lable">
+            <dt>
+
+                @Html.DisplayNameFor(model => model.HoVaten)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HoVaten)
+            </dd>
+        </div>
+        <div class="lable">
+            <dt>
+
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </div>
+        <div class="lable">
+            <dt>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DienThoai)
+            </dd>
+        </div>
+        <div class="lable">
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+        </div>
+
+        <div class="lable">
+            <dt>
+                @Html.DisplayNameFor(model => model.TenDangNhap)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenDangNhap)
+            </dd>
+        </div>
+
+    </dl>
+</div>

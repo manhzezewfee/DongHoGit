@@ -1,0 +1,17 @@
+﻿
+@model IEnumerable<ngay8thang3_Complete.Models.DongHo>
+
+@foreach (var item in Model.Take(5))
+{
+    <div class="col-md col-6">
+        <figure class="card-product-grid card-sm">
+            <a href="~/DongHoes/Details?id=@item.ID" class="img-wrap">
+                <img src="~/@item.HinhAnhDH">
+            </a>
+            <div class="text-wrap p-3">
+                <a style="height:45px" href="~/DongHoes/Details?id=@item.ID" class="title">@item.TenDongHo</a>
+                <span class="badge badge-danger"> @item.KhuyenMai %</span>
+            </div>
+        </figure>
+    </div>
+}

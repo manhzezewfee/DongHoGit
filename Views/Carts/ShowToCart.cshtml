@@ -1,0 +1,51 @@
+﻿@model ngay8thang3_Complete.Models.CommonModel.Cart
+
+@{
+    ViewBag.Title = "ShowToCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowToCart</h2>
+
+@if (Model != null)
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Mã sản phẩm</td>
+                <td>Tên sản phẩm</td>
+                <td>Hình ảnh </td>
+                <td>Số lượng </td>
+                <td>Đơn giá </td>
+                <td>Thành tiền </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                double total = item.ProductId.DonGia.Value * item.Quality;
+                <tr>
+                    <td>@item.ProductId.ID</td>
+                    <td>@item.ProductId.TenDongHo</td>
+                    <td><img src="~/@item.ProductId.HinhAnhDH" width="100" alt="Alternate Text" /> </td>
+                    <td>
+                        @using (Html.BeginForm("updateQuatity", "Carts"))
+                        {
+                            <input type="hidden" name="id_sp" value="@item.ProductId.ID" />
+                            <input type="number" name="quatity" class="text" value="@item.Quality" />
+                            <input type="submit" value="Update" />
+                        }
+
+                    </td>
+                    <td>@item.ProductId.DonGia </td>
+                    <td>@total</td>
+                    
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}    

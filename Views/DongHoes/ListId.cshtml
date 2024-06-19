@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ngay8thang3_Complete.Models.DongHo>
+
+
+@{
+
+    if(Model.Count() > 0)
+    {
+        ViewBag.Title = Model.First().LoaiDH.TenLoai;
+    }
+    else
+    {
+        ViewBag.title = "Hiện chưa có sản phẩm nào";
+    }
+
+
+
+}
+<section class="padding-bottom-sm">
+
+    <header class="section-heading heading-line">
+        <h4 class="title-section text-uppercase">@ViewBag.Title</h4>
+    </header>
+
+    <div class="row row-sm">
+        @if (Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                    <div href="#" class="card card-sm card-product-grid">
+                        <a href="~/DongHoes/Details?id=@item.ID" class="img-wrap"> <img src="~/@item.HinhAnhDH"> </a>
+                        <figcaption class="info-wrap">
+                            <a style="height:45px" href="~/DongHoes/Details?id=@item.ID" class="title">@item.TenDongHo</a>
+                            <div class="price mt-1">@string.Format("{0:N0}", item.DonGia)</div> <!-- price-wrap.// -->
+                            <div style="display:flex; justify-content:space-evenly">
+                                @if (Session["iduser"] != null)
+                                {
+                                    <a href="@Url.Action("ThemVaoGio","ShoppingCard",new { maSP = item.ID })" class="btn btn-outline-primary"> <i class="fa fa-shopping-cart"></i> Giỏ hàng </a>
+                                    <a href="#" class="btn btn-light"><i class="fa fa-heart"></i> Thích </a>
+                                }
+                                else
+                                {
+                                    <a href="~/KhachHangs/Index" class="btn btn-outline-primary"> <i class="fa fa-shopping-cart"></i> Giỏ hàng </a>
+                                    <a href="~/KhachHangs/Index" class="btn btn-light"><i class="fa fa-heart"></i> Thích </a>
+                                }
+
+
+                            </div>
+                            
+                        </figcaption>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <div href="#" class="card card-sm card-product-grid">
+                    <span>  Hiện chưa có sản phẩm! xin vui lòng quay lại sau!</span>
+                </div>
+            </div>
+        }
+        <!-- col.// -->
+
+    </div> <!-- row.// -->
+</section>

@@ -1,0 +1,171 @@
+﻿@model ngay8thang3_Complete.Models.KhachHang
+
+@{
+    ViewBag.Title = "Đăng ký";
+}
+<style>
+    span{
+        color:red;
+        font-size:12px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="section-content padding-y">
+
+        <!-- ============================ COMPONENT REGISTER   ================================= -->
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+            <article class="card-body">
+                <header class="mb-4"><h4 class="card-title">Đăng ký  <span> <i>(* các thông tin bắt buộc)</i></span></h4></header>
+                <form>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Email</label>
+
+                            @*@Html.EditorFor(model => model.HoVaten, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <input type="email" name="Email" id="email" value="" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Họ tên <span>*</span></label>
+
+                            @*@Html.EditorFor(model => model.HoVaten, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <input type="text" name="HoVaTen" id="hoten" value="" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.HoVaten, "", new { @class = "text-danger" })
+
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-group">
+                        <label>Điện thoại <span>*</span></label>
+
+                        @*@Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input type="text" name="DienThoai" id="dienthoai" class="form-control" value="" />
+                        @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
+
+                    </div> <!-- form-group end.// -->
+                    <div class="form-group">
+                        <label>Địa chỉ <span>*</span></label>
+
+                        @*tml.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input type="text" name="DiaChi" id="diachi" class="form-control" value="" />
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+
+                    </div> <!-- form-group end.// -->
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label>Tên đăng nhập <span>*</span></label>
+
+                            @*@Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <input type="text" name="TenDangNhap" class="form-control" id="tendangnhap" value="" />
+                            @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div> <!-- form-row.// -->
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label>Mật khẩu <span>*</span></label>
+
+                            @*@Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <input type="password" name="MatKhau" class="form-control" id="matkhau" value="" />
+                            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label>Xác nhận mật khẩu <span>*</span></label>
+
+                            @*@Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <input type="password" id="repassword" name="repassword" class="form-control" value="" />
+                            <p id="err"></p>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.XacNhanMatKhau)
+
+                @Html.EditorFor(model => model.XacNhanMatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.XacNhanMatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <button type="button" id="btnSubmit" class="btn btn-primary btn-block"> Register  </button>
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" checked="">
+                            <div class="custom-control-label">I am agree with  <a href="#">terms and contitions</a>  </div>
+                        </label>
+                    </div> <!-- form-group end.// -->
+                </form>
+            </article><!-- card-body.// -->
+        </div> <!-- card .// -->
+        <p class="text-center mt-4">Have an account? <a href="~/KhachHangs/Index">Log In</a></p>
+        <br><br>
+        <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+    </section>
+}
+@section scripts{
+    <script>
+       
+            $('#btnSubmit').click(function () {
+                let hoten = $('#hoten').val().trim();
+                let dienthoai = $('#dienthoai').val().trim();
+                let diachi = $('#diachi').val().trim();
+                let tendangnhap = $('#tendangnhap').val().trim();
+                let matkhau = $('#matkhau').val().trim();
+                let xacnhanmatkhau = $('#repassword').val().trim();
+                let email = $('#email').val().trim();
+                if (hoten.length == 0 || dienthoai.length == 0 || diachi.length == 0 || tendangnhap.length == 0 || matkhau.length == 0 || xacnhanmatkhau.length == 0) {
+                    alert('Vui lòng nhập đầy đủ dữ liệu');
+                    return;
+                }
+                else if (matkhau != xacnhanmatkhau) {
+                    alert('Mật khẩu không trùng khớp');
+                    return;
+                }
+                $.ajax({
+                    url: '/KhachHangs/Register',
+                    type: 'post',
+                    data: {
+                        hoten: hoten,
+                        dienthoai: dienthoai,
+                        email: email,
+                        diachi: diachi,
+                        tendangnhap: tendangnhap,
+                        matkhau: matkhau
+                    },
+                    success: function (data) {
+                        /* console.log(data);*/
+                        if (data.code == 200) {
+                            alert(data.msg);
+                           
+                            $('#hoten').val('');
+                            $('#dienthoai').val('');
+                            $('#email').val('');
+                            $('#diachi').val('');
+                            $('#tendangnhap').val('')
+                            $('#matkhau').val().trim('');
+                            $('#xacnhanmatkhau').val('');
+                            window.location.href = '/KhachHangs/Index';
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+
+                });
+            })
+       
+    </script>
+}

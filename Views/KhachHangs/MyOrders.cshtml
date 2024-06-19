@@ -1,0 +1,84 @@
+﻿
+
+
+@model IEnumerable<ngay8thang3_Complete.Models.CommonModel.Myorders>
+
+@{
+    ViewBag.Title = "Đơn hàng của tôi";
+}
+<style>
+    th{
+        text-align:center
+    }
+</style>
+<link href="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" rel="stylesheet" />
+
+        <table id="Panigation" class="table table-bordered table-hover table-sm mb-0">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>Hình ảnh</th>
+                    <th>Sản phẩm</th>
+                    <th width="10%">Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Thời gian đặt hàng</th>
+                    <th>Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 1; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@stt</td>
+                        <td><img src="~/@item.HinhAnhDH" width="150" /></td>
+                        <td class="text-center">@item.TenDongHo</td>
+                        <td class="text-center">@item.SoLuong</td>
+                        <td class="text-center">@String.Format("{0:N0}", item.DonGia) VNĐ</td>
+                        <td class="text-center">@String.Format("{0:N0}", item.DonGia * item.SoLuong) VNĐ</td>
+                        <td>@item.NgayDatHang</td>
+                        <td>
+                            @if (item.TinhTrang == 0)
+                            {
+                                <span style="color: #563CFF">Đang chờ duyệt</span>
+                            }
+                            else if (item.TinhTrang == 1)
+                            {
+                                <span style="color: #2200FF">Đang đóng gói</span>
+                            }
+                            else if (item.TinhTrang == 2)
+                            {
+                                <span style="color: #7B68EE">Đang vận chuyển</span>
+                            }
+                            else if (item.TinhTrang == 3)
+                            {   
+                                <span style="color:#7B68EE">Giao hàng thành công</span>
+                            }
+                            else
+                            {
+                                <span>Đã hủy</span>
+                            }
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#Panigation').DataTable({
+                "language": {
+                    "lengthMenu": "Số dòng _MENU_  trên trang ",
+                    "zeroRecords": "Không tìm thấy!!!",
+                    "info": "Trang  _PAGE_ của _PAGES_",
+                    "infoEmpty": "Không có sẵn dữ liệu",
+                    "infoFiltered": "(được lọc từ tổng _MAX_  dữ liệu)"
+                }
+            });
+        });
+    </script>
+}

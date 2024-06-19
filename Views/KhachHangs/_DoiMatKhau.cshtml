@@ -1,0 +1,75 @@
+﻿
+@model ngay8thang3_Complete.Models.CommonModel.KhachHangChangePassword
+
+<style>
+    span{
+        color:red;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    if (ViewBag.error != null)
+    {
+        <span class="badge badge-danger mt-2">@ViewBag.error</span>
+    }
+    <div class="modal-content">
+        <form id="myform" class="modal-header" style="display:flex">
+
+
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input hidden id="id_khachhang" value="" />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MatKhau)
+                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        @if (ViewBag.error != null)
+                        {
+                            <span class="badge badge-danger mt-2">@ViewBag.error</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MatKhauMoi)
+                        @Html.EditorFor(model => model.MatKhauMoi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MatKhauMoi, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.XacNhanMatKhauMoi)
+                        @Html.EditorFor(model => model.XacNhanMatKhauMoi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.XacNhanMatKhauMoi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="modal-footer center" style="justify-content:space-around">
+                        <div class="hstack gap-2 justify-content-end">
+
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </form>
+       
+    </div>
+}
+@section Scripts {
+    <script>
+        function checkPw(form) {
+            pw1 = form.MatKhauMoi.value;
+            pw2 = form.XacNhanMatKhauMoi.value;
+
+            if (pw1 != pw2) {
+                @ViewBag.error = "Mật khẩu mới không trùng khớp"
+                return false;
+            }
+            else return true;
+        }
+// End -->
+    </script>
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

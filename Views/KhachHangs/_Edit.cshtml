@@ -1,0 +1,100 @@
+﻿@model ngay8thang3_Complete.Models.KhachHang
+
+<style>
+    .form-group {
+        display: flex;
+        padding-bottom: 10px
+    }
+
+    .control-label {
+        padding: 10px !important;
+    }
+
+    .modal-content {
+        border: 0px
+    }
+
+    .modal-body {
+        padding: 0px
+    }
+
+    span {
+        color: red;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div class="modal-content">
+        <form id="myform" class="modal-header" style="display:flex">
+
+
+            <div class="modal-body">
+                <input hidden id="id_khachhang" value="@Model.ID" />
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Họ tên <span>*</span></label>
+                    <input type="text" class="form-control" id="hoten" name="hoten" aria-describedby="emailHelp" value="@Model.HoVaten">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Điện thoại <span>*</span></label>
+                    <input type="text" class="form-control" id="dienthoai" name="dienthoai" aria-describedby="emailHelp" value="@Model.DienThoai">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Địa chỉ <span>*</span></label>
+                    <input type="text" class="form-control" id="diachi" name="diachi" aria-describedby="emailHelp" value="@Model.DiaChi">
+                </div>
+
+            </div>
+
+        </form>
+        <div class="modal-footer center" style="justify-content:space-around">
+            <div class="hstack gap-2 justify-content-end">
+
+                <button type="submit" id="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+
+            $('#submit').click(function () {
+                let idkh = $('#id_khachhang').attr('id');
+                let hoten = $('#hoten').val().trim();
+                let dienthoai = $('#dienthoai').val().trim();
+                let diachi = $('#diachi').val().trim();
+                if (hoten.length == 0 || dienthoai.length == 0 || diachi.length == 0) {
+                    alert('Hãy nhập đủ thông tin');
+                    return;
+                }
+                $.ajax({
+                    url: '/KhachHangs/ThongTinCaNhan',
+                    type: 'post',
+                    data: {
+                        id = idkh,
+                        hoten = hoten,
+                        diachi = diachi,
+                        dienthoai = dienthoai
+                    }
+                    success: function (data) {
+                        if (data.code == 200) {
+                            $('#hoten').val(data.dt.HoVaten);
+                            $('#dienthoai').val(data.dt.DienThoai);
+                            $('#diachi').val(data.dt.DiaChi);
+                            alert(data.msg);
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+}
+

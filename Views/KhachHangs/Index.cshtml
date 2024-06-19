@@ -1,0 +1,113 @@
+﻿@model ngay8thang3_Complete.Models.CommonModel.KhachHangModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    ViewBag.pattern = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";
+}
+
+<body>
+
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-conten padding-y" style="min-height:84vh; padding-top:0px; margin-top:-20px">
+       
+        <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+            <div class="card-body">
+                
+                <h4 class="card-title mb-4">Đăng nhập</h4>
+                @using (Html.BeginForm("Index", "KhachHangs", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <form>
+                        <a href="#" class="btn btn-facebook btn-block mb-2"> <i class="fab fa-facebook-f"></i> &nbsp  Sign in with Facebook</a>
+                        <a href="#" class="btn btn-google btn-block mb-4"> <i class="fab fa-google"></i> &nbsp  Sign in with Google</a>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenDangNhap)
+                            @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MatKhau)
+                            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        </div> <!-- form-group// -->
+
+                        <div class="form-group">
+                            <a id="forgetPass" href="#" class="float-right">Quên mật khẩu?</a>
+                            <label class="float-left custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" checked="">
+                                <div class="custom-control-label"> <p>Remember</p> </div>
+                            </label>
+                        </div> <!-- form-group form-check .// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                            <div class="success alert-success">
+                                @TempData["ThongBao"]
+                            </div>
+                        </div> <!-- form-group// -->
+
+                    </form>
+                }
+                <p style="color:red">@ViewBag.Login</p>
+
+
+            </div> <!-- card-body.// -->
+        </div> <!-- card .// -->
+
+        <p class="text-center mt-4">Bạn không có tài khoản? <i class="fa fa-arrow-right"></i> <a href="~/KhachHangs/Register">Sign up</a></p>
+        <br><br>
+        <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    <!-- ========================= FOOTER ========================= -->
+    <!-- ========================= FOOTER END // ========================= -->
+
+
+
+    <div class="modal fade" id="modal-log" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Forgotpass", "KhachHangs", FormMethod.Post))
+                {
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email đăng ký</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                            <p style="color:red" id="valEmail"></p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" id="btnSubmit" value="Submit"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+@section scripts{
+
+    <script>
+        //show modal
+        $('#forgetPass').click(function () {
+            $('#modal-title').text("Quên mật khẩu");
+            $('#modal-log').modal();
+        })
+
+    </script>
+} 

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<ngay8thang3_Complete.Models.LoaiDH>
+
+
+
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("listId","DongHoes", new { id = item.ID })">@item.TenLoai</a></li>
+}

@@ -1,0 +1,381 @@
+﻿
+<section class="section-pagetop bg-light">
+    <div class="container">
+        <h2 class="title-page">Chào mừng @Session["fullname"]</h2>
+    </div> <!-- container .// -->
+</section>
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg-white padding-y">
+   
+    <div class="container">
+        <div>
+            <p style="font-size:20px; margin:30px">Chúng tôi chúc bạn luôn có những trải nghiệm tốt nhất khi sử dụng sản phẩm của chúng tôi</p>
+        </div>
+        <div>
+            <div>
+                <a href="#collapseDiv" class="btn btn-sm btn-primary" aria-controls="collapsePanel" data-toggle="collapse" role="button">
+                    <i class="fa fa-cart"></i> Đơn hàng của tôi
+                </a>
+
+
+                <div id="collapseDiv" class="panel-collapse collapse" aria-expanded="false" role="tabpanel">
+                    <div class="card card-body">
+                        @{Html.RenderAction("MyOrders", "KhachHangs");}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size:20px; margin:30px 0 20px 0">Thông tin người dùng</p>
+        <!--<div class="row mt-5">
+    <div class="col-md-4">
+        <div>
+            <div>
+                <a href="#collapseDiv1" class="btn btn-sm btn-primary" aria-controls="collapsePanel" data-toggle="collapse" role="button">
+                    <i class="fa fa-cart"></i> Thông tin tài khoản
+                </a>
+
+                <div id="collapseDiv1" class="panel-collapse collapse" aria-expanded="false" role="tabpanel">
+                    <div class="card card-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+        <!-- col.// -->
+        <!--<div class="col-md-4">
+        <div>
+            <a href="#collapseDiv3" class="btn btn-sm btn-primary" aria-controls="collapsePanel" data-toggle="collapse" role="button">
+                <i class="fa fa-cart"></i> Sửa thông tin tài khoản
+            </a>
+
+
+            <div id="collapseDiv3" class="panel-collapse collapse" aria-expanded="false" role="tabpanel">
+                <div class="card card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>-->
+        <!-- col.// -->
+        <!--<div class="col-md-4">
+        <div>
+            <a href="#collapseDiv2" class="btn btn-sm btn-primary" aria-controls="collapsePanel" data-toggle="collapse" role="button">
+                <i class="fa fa-cart"></i> Đổi mật khẩu
+            </a>
+
+
+            <div id="collapseDiv2" class="panel-collapse collapse" aria-expanded="false" role="tabpanel">
+                <div class="card card-body">
+                   /
+                </div>
+            </div>
+        </div>
+    </div>-->
+        <!-- col.// -->
+        <!--</div>--> <!-- row.// -->
+        <table>
+            <tr id="@Session["iduser"]">
+                <td>
+                    <button class="btn btn-info" name="view">
+                        <p id="xemthongtin" style="color:white; cursor:pointer">
+                            Xem thông tin tài khoản
+                        </p>
+                    </button>
+                </td>
+
+                <td>
+                    <button class="btn btn-info" name="update">
+                        <p id="suathongtin" style="color:white; cursor:pointer">
+                            Sửa thông tin tài khoản
+                        </p>
+                    </button>
+                </td>
+                <td>
+                <td>
+                    <button class="btn btn-info" name="changePassword">
+                        <p id="doimatkhau" style="color:white; cursor:pointer">
+                            Đổi mật khẩu
+                        </p>
+                    </button>
+                </td>
+
+            </tr>
+        </table>
+        
+        <div class="modal fade" id="modal-log" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input hidden id="id_khachhang" value="" />
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Họ tên</label>
+                            <input type="text" class="form-control" id="hoten" name="hoten" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Điện thoại</label>
+                            <input type="text" class="form-control" id="dienthoai" name="dienthoai" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="diachi" name="diachi" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" id="tendangnhap" name="tendangnhap" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="mk">Mật khẩu</label>
+                            <input type="password" class="form-control" id="matkhau" name="matkhau" aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="xacnhan">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="xacnhanmatkhau" aria-describedby="emailHelp">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    @* đổi mật khẩu modal *@
+        <div class="modal fade" id="modal-log1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title1"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="mkc">Mật khẩu cũ <span style="color:red">*</span> </label>
+                            <input type="password" class="form-control" id="matkhaucu" name="matkhaucu" aria-describedby="emailHelp" required>
+                            <p class="text-danger" id="err"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="mk">Mật khẩu mới <span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="matkhaumoi" name="matkhaumoi" aria-describedby="emailHelp" required>
+                            <p class="text-danger" id="err1"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="xacnhan">Xác nhận mật khẩu <span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="xacnhandoimatkhau" aria-describedby="emailHelp" required>
+                            <p class="text-danger" id="err2"></p>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSubmitmk">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="javascript: history.back()" class="btn btn-light"> &laquo Quay lại</a>
+
+
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<!-- ========================= FOOTER ========================= -->
+@section scripts{
+    <script>
+
+        //$('#suathongtin').click(function () {
+        //    $('#modal-log').modal();
+        //})
+        //sửa mật khẩu
+        $(document).on('click', "button[name='changePassword']", function () {//lấy ra id của trường
+            let idkh = $(this).closest('tr').attr('id');
+            $('#modal-title1').text('Đổi mật khẩu');
+            $('#modal-log1').modal();
+            $('#btnSubmitmk').click(function () {
+                let matkhaucu = $('#matkhaucu').val().trim();
+                let matkhaumoi = $('#matkhaumoi').val().trim();
+                let xacnhan = $('#xacnhandoimatkhau').val().trim();
+                if (matkhaucu.length == 0) {
+                    $('#err').text('vui lòng nhập mật khẩu cũ');
+                }
+                if (matkhaumoi.length < 3) {
+
+                    $('#err1').text("Mật khẩu ít nhất 3 ký tự");
+                    return;
+                }
+                else if (matkhaumoi != xacnhan) {
+                    $('#err2').text('Mật khẩu không trùng khớp');
+                    return;
+                }
+                $.ajax({
+                    url: '/KhachHangs/ChangePassword',
+                    type: 'post',
+                    data: {
+                        id: idkh,
+                        matkhaucu: matkhaucu,
+                        matkhaumoi: matkhaumoi
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            window.location.href = '/KhachHangs/Index';
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            });
+
+
+        });
+        //sửa thông tin tài khoản
+        $(document).on('click', "button[name='update']", function () {//lấy ra id của trường
+            let idkh = $(this).closest('tr').attr('id');
+            $.ajax({
+                url: '/KhachHangs/ChiTiet',
+                type: 'get',
+                data: { id: idkh },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#id_khachhang').val(idkh);
+                        $('#hoten').val(data.dt.HoVaten);
+                        $('#dienthoai').val(data.dt.DienThoai);
+                        $('#diachi').val(data.dt.DiaChi);
+                        $('#tendangnhap').val(data.dt.TenDangNhap);
+                        $('#email').val(data.dt.Email);
+                        $('#matkhau').hide();
+                        /* $('#xacnhanmatkhau').hidden();*/
+                        //ko cho chỉnh sửa giá trị
+                        $('#hoten').prop('readonly', false);
+                        $('#dienthoai').prop('readonly', false);
+                        $('#diachi').prop('readonly', false);
+                        $('#tendangnhap').prop('readonly', true);
+                        $('#matkhau').prop('readonly', false);
+                        $('#xacnhanmatkhau').hide();
+                        $('#btnSubmit').show();
+                        $('#xacnhan').hide();
+                        $('#mk').hide();
+                        $('#modal-title').text('Thông tin tài khoản');
+                        $('#email').prop('readonly', false);
+
+
+                        $('#modal-log').modal();
+
+
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+
+
+            $('#btnSubmit').click(function () {
+                let hoten = $('#hoten').val().trim();
+                let dienthoai = $('#dienthoai').val().trim();
+                let diachi = $('#diachi').val().trim();
+                //let tendangnhap = $('#tendangnhap').val().trim();
+                //let matkhau = $('#matkhau').val().trim();
+                //let xacnhanmatkhau = $('#xacnhanmatkhau').val().trim();
+
+                let email = $('#email').val().trim();
+                if (hoten.length == 0 || dienthoai.length == 0 || diachi.length == 0 || email.length == 0) {
+                    alert('Vui lòng nhập đầy đủ dữ liệu');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/KhachHangs/SuaThongTin',
+                    type: 'post',
+                    data: {
+                        id: idkh,
+                        hoten: hoten,
+                        email: email,
+                        diachi: diachi,
+                        dienthoai: dienthoai
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            location.reload();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                })
+            });
+        });
+
+        //xem thông tin
+        $(document).on('click', "button[name='view']", function () {//lấy ra id của trường
+            let idkh = $(this).closest('tr').attr('id');
+            //$('#btnSubmit').click(function () {
+            //    alert(idkh);
+            //    return;
+            //})
+
+            $.ajax({
+                url: '/KhachHangs/ChiTiet',
+                type: 'get',
+                data: { id: idkh },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#id_khachhang').val(idkh);
+                        $('#hoten').val(data.dt.HoVaten);
+                        $('#dienthoai').val(data.dt.DienThoai);
+                        $('#diachi').val(data.dt.DiaChi);
+                        $('#tendangnhap').val(data.dt.TenDangNhap);
+                        $('#email').val(data.dt.Email);
+                        $('#matkhau').val(data.dt.MatKhau);
+                        /* $('#xacnhanmatkhau').hidden();*/
+                        //ko cho chỉnh sửa giá trị
+                        $('#hoten').prop('readonly', true);
+                        $('#dienthoai').prop('readonly', true);
+                        $('#diachi').prop('readonly', true);
+                        $('#tendangnhap').prop('readonly', true);
+                        $('#matkhau').prop('readonly', true);
+                        $('#xacnhanmatkhau').hide();
+                        $('#btnSubmit').hide();
+                        $('#xacnhan').hide();
+                        $('#modal-title').text('Thông tin tài khoản');
+                        $('#email').prop('readonly', true);
+
+                        $('#modal-log').modal();
+
+
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        })
+
+
+
+    </script>
+}

@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cart = (List<ngay8thang3_Complete.Models.CommonModel.CartItem>)Session["cart"];
+}
+
+<div class="card mt-3">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body">
+        @if (ViewBag.tb != null)
+        {
+            <div id="AlertBox" class="alert alert-success">
+                @ViewBag.tb
+            </div>
+        }
+        @if (cart == null || cart.Count <= 0)
+        {
+            <span class="alert alert-danger">Giỏ hàng chưa có sản phẩm!</span>
+        }
+        else
+        {
+            {
+                string message = TempData["Message"] as string;
+                if (message != null)
+                {
+                    <p class="alert alert-danger">@message</p>
+                }
+            }
+
+            <table class="table table-bordered table-hover table-sm">
+                <tr>
+                    <th width="5%">#</th>
+                    <th>Hình ảnh</th>
+                    <th>Sản phẩm</th>
+                    <th width="10%">Số lượng</th>
+                    <th class="text-center">Đơn giá</th>
+                    <th class="text-center">Thành tiền</th>
+                    <th width="5%"></th>
+                </tr>
+                @{ int stt = 1; }
+                @foreach (var item in cart)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td><img src="~/@item.dongho.HinhAnhDH" width="50" /></td>
+                        <td>@item.dongho.TenDongHo</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><a href="@Url.Action("CapNhatGiam", "ShoppingCard", new { maSP = item.dongho.ID })"><i class="fas fa-minus"></i></a></span>
+
+                                </div>
+                                <input type="text" class="form-control text-center" value="@item.soLuongTrongGio" readonly />
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><a href="@Url.Action("CapNhatTang", "ShoppingCard", new { maSP = item.dongho.ID })"><i class="fas fa-plus"></i></a></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">@String.Format("{0:N0}", item.dongho.DonGia) VNĐ</td>
+                        @if (item.dongho.KhuyenMai != 0)
+                        {
+                            <td class="text-center">@String.Format("{0:N0}", item.soLuongTrongGio * (item.dongho.DonGia - item.dongho.KhuyenMai * item.dongho.DonGia / 100)) VNĐ <p style="font-size:10px;"><i>(đã trừ giảm khuyến mãi)</i></p></td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@String.Format("{0:N0}", item.soLuongTrongGio * item.dongho.DonGia) VNĐ</td>
+                        }
+
+                        <td class="text-center"><a href="@Url.Action("XoaKhoiGio", "ShoppingCard", new { maSP = item.dongho.ID })">Xóa</a></td>
+                    </tr>
+                    stt++;
+                }
+
+                <tr>
+                    <td colspan="5" class="text-right">Tổng thành tiền</td>
+                    <td class="text-center font-weight-bold text-primary">
+                        @{
+
+                            var total = @String.Format("{0:N0}", cart.Sum(item => (item.dongho.DonGia - item.dongho.KhuyenMai * item.dongho.DonGia / 100) * item.soLuongTrongGio)) + " VNĐ";
+                            //var total = @String.Format("{0:N0}", cart.Sum(item => item.GetDonGia(item.dongho) * item.soLuongTrongGio)) + " VNĐ";
+                        }
+                        @total
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <p>
+                <a href="@Url.Action("Index", "DongHoes")" class="btn btn-primary">Tiếp tục mua hàng</a>
+                <a href="@Url.Action("ThanhToan", "ShoppingCard")" class="btn btn-success">Thanh toán</a>
+            </p>
+        }
+        <div style="margin-top:50px">
+            <a href="~/DongHoes/Index" class="btn btn-light"> &laquo Quay lại</a>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+    </script>
+    }
